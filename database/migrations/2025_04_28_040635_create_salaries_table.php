@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('salaries', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('employees_id')->constrained('employees')->onDelete('cascade');
+            $table->foreignId('employee_id')->constrained('employees')->onDelete('cascade');
             $table->decimal('base_salary',15,2);
             $table->decimal('bonus',15,2)->nullable();
             $table->boolean('approved');
