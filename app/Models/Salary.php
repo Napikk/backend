@@ -15,4 +15,9 @@ class Salary extends Model
         'bonus',
         'approved',
     ];
+
+    public function employee()
+    {
+        return $this->belongsTo(Employee::class);
+    }
 }
