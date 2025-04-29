@@ -15,4 +15,9 @@ class SalaryClaim extends Model
         'claim_date',
         'status',
     ];
+
+    public function salary()
+    {
+        return $this->belongsTo(Salary::class);
+    }
 }
