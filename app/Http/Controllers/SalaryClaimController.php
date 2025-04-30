@@ -38,5 +38,5 @@ class SalaryClaimController extends Controller
 
         return response()->json($claim);
     }    
-
+    
 }
