@@ -16,4 +16,9 @@ class Attendance extends Model
         'note',
         'approved',
     ];
+
+    public function employee () 
+    {
+        return $this->hasMany(Employee::class);
+    }
 }
