@@ -14,4 +14,12 @@ class AttendanceApprovalLog extends Model
         'approved_by',
         'approval_date',
     ];
+    
+    public function attendance(){
+        return $this->belongsTo(Attendance::class, "attendance_id");
+    }
+
+    public function approver(){
+        return $this->belongsTo(user::class, "approved_by");
+    }
 }
