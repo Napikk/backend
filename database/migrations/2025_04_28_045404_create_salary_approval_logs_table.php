@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('salary_approval_logs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('salaries_id')->constrained('salaries')->onDelete('cascade');
+            $table->foreignId('salary_id')->constrained('salaries')->onDelete('cascade');
             $table->foreignId('approved_by')->constrained('users')->onDelete('cascade');
             $table->timestamp('approval_date');
             $table->timestamps();

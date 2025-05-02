@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('attendance_approval_logs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('attendances_id')->constrained('attendances')->onDelete('cascade');
+            $table->foreignId('attendance_id')->constrained('attendances')->onDelete('cascade');
             $table->foreignId('approved_by')->constrained('users')->onDelete('cascade');
             $table->timestamp('approval_date');
             $table->timestamps();

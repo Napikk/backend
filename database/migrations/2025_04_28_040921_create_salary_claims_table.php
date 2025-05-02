@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('salary_claims', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('salaries_id')->constrained('salaries')->onDelete('cascade');
-            $table->foreignId('employees_id')->constrained('employees')->onDelete('cascade');
+            $table->foreignId('salary_id')->constrained('salaries')->onDelete('cascade');
+            $table->foreignId('employee_id')->constrained('employees')->onDelete('cascade');
             $table->date('claim_date');
             $table->enum('status', ['pending','completed'])->default('pending');
             $table->timestamps();
