@@ -14,4 +14,12 @@ class SalaryApprovalLog extends Model
         'approved_by',
         'approval_date'
     ];
+
+    public function salary(){
+        return $this->belongsTo(Salary::class, "salary_id");
+    }
+    
+    public function approver(){
+        return $this->belongsTo(User::class, "approved_by");
+    }
 }
