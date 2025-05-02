@@ -21,14 +21,12 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logout']);
 
-Route::apiResource('employee', EmployeeController::class);
+/*Route::apiResource('employee', EmployeeController::class);
 Route::apiResource('salaries', SalaryController::class);
-Route::apiResource('salary_claims', SalaryClaimController::class);
-Route::get('/salary_approval_logs', [SalaryApprovalLogController::class, 'index']);
-Route::get('/attendance_approval_logs', [AttendanceApprovalLogController::class, 'index']);
+Route::apiResource('salary_claims', SalaryClaimController::class);*/
 
 // hr
-Route::middleware(['auth:sanctum', 'role:hr'])->group(function () {
+Route::middleware(['auth:sanctum', 'role:HR'])->group(function () {
     Route::post('/salaries/{id}/approve', [SalaryController::class, 'approve']);
     Route::get('/salary-approval-logs', [SalaryApprovalLogController::class, 'index']);
 });
