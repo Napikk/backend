@@ -17,8 +17,12 @@ class Attendance extends Model
         'approved',
     ];
 
+    public function attendanceapproval(){
+        return $this->hasMany(AttendanceApprovalLog::class);
+    }
+
     public function employee () 
     {
-        return $this->hasMany(Employee::class);
+        return $this->belongsTo(Employee::class);
     }
 }
