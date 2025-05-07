@@ -10,7 +10,7 @@ class UserController extends Controller
     // Hanya admin yang boleh mengakses
     public function index()
     {
-        $users = User::all();
+        $users = User::where("role", "karyawan")->get();
         return response()->json($users);
     }
 
