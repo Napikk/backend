@@ -13,6 +13,9 @@ class Salary extends Model
         'employee_id',
         'base_salary',
         'bonus',
+        'tunjangan',
+        'position_name',
+        'total',
         'approved',
     ];
 
@@ -20,4 +23,13 @@ class Salary extends Model
     {
         return $this->belongsTo(Employee::class);
     }
+
+    public function salaryapprovallog(){
+        return $this->hasMany(SalaryApprovalLog::class);
+    }
+
+    public function salaryclaim(){
+        return $this->hasMany(SalaryClaim::class);
+    }
+
 }
