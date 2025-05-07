@@ -14,13 +14,15 @@ return new class extends Migration
         Schema::create('salaries', function (Blueprint $table) {
             $table->id();
             $table->foreignId('employee_id')->constrained('employees')->onDelete('cascade');
-            $table->decimal('base_salary',15,2);
-            $table->decimal('bonus',15,2)->nullable();
+            $table->decimal('base_salary', 15, 2);
+            $table->decimal('bonus', 15, 2)->nullable();
+            $table->decimal('tunjangan', 15, 2);
+            $table->string('position_name');
+            $table->decimal('total', 15, 2);
             $table->boolean('approved');
             $table->timestamps();
         });
-    }
-
+    }    
     /**
      * Reverse the migrations.
      */
