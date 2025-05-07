@@ -17,9 +17,12 @@ class EmployeeController extends Controller
     {
         $validated = $request->validate([
             'user_id' => 'required|exists:users,id',
-            'employee_code' => 'required|unique:employees',
-            'position' => 'required',
-            'hire_date' => 'required|date',      
+            'full_name'=>'required|string',
+            'position_id' => 'required|exists:positions,id',
+            'email'=>'required|string',
+            'phone_number'=>'required|string',
+            'address'=>'required|string',
+            'image'=>'nullable|image|mimes:jpeg,png,jpg|max:2048',    
         ]);
 
         $employee = Employee::create($validated);
@@ -30,6 +33,7 @@ class EmployeeController extends Controller
     public function show($id)
     {
         $employee = Employee::with('user')->findOrFail($id);
+        $employee = Employee::with('position')->findOrFail($id);
 
         return response()->json($employee);
     }
@@ -39,9 +43,13 @@ class EmployeeController extends Controller
         $employee = Employee::findOrFail($id);
 
         $validated = $request->validate([
-            'employee_code' => 'required|unique:employees,employee_code,'. $id,
-            'position' => 'required',
-            'hire_date' => 'requored|date',
+             'full_name'=>'required|string',
+            'position_id' => 'required|exists:positions,id',
+            'email'=>'required|string',
+            'phone_number'=>'required|string',
+            'address'=>'required|string',
+            'image'=>'nullable|image|mimes:jpeg,png,jpg|max:2048',
+           
         ]);
 
         $employee->update($validated);
