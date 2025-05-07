@@ -20,4 +20,9 @@ class SalaryClaim extends Model
     {
         return $this->belongsTo(Salary::class);
     }
+
+    public function employee()
+    {
+        return $this->belongsTo(Employee::class);
+    }
 }
