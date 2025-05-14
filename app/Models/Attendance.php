@@ -11,11 +11,13 @@ class Attendance extends Model
 
     protected $fillable = [
         'employee_id',
-        'date',
-        'status',
+        'date_start',
+        'date_end',
         'note',
+        'image',
         'approved',
     ];
+    
 
     public function attendanceapproval(){
         return $this->hasMany(AttendanceApprovalLog::class);
