@@ -9,62 +9,60 @@ use Illuminate\Support\Facades\Hash;
 class AuthController extends Controller
 {
     public function register(Request $request)
-    {
-        $request->validate([
-            'name'  => ['required', 'string', 'min:3', 'max:255'],
-            'email' =>[
-                'required',
-                'string',
-                'email',
-                'max:255',
-                'unique:users,email',
-            ],
-            'password' => ['required','string','min:8'],
-        ]);
+{
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|string|email|max:255|unique:users,email',
+        'password' => 'required|string|min:8',
+        'role' => 'nullable|in:admin,HR,karyawan'
+    ]);
 
-        $user = User::create([
-            'name'  =>$request->name,
-            'email'  =>$request->email,
-            'password'  =>Hash::make($request->password),
-            'role'  => 'karyawan',
-        ]);
+    $user = User::create([
+        'name' => $request->name,
+        'email' => $request->email,
+        'password' => Hash::make($request->password),
+        'role' => $request->role ?? 'karyawan'
+    ]);
 
+    return response()->json([
+        'message' => 'Registrasi berhasil!',
+        'user' => [
+            'id' => $user->id,
+            'name' => $user->name,
+            'email' => $user->email,
+            'role' => $user->role
+        ]
+    ], 201);
+}
+public function login(Request $request)
+{
+    $request->validate([
+        'email' => 'required|email',
+        'password' => 'required|string',
+    ]);
+
+    $user = User::where('email', $request->email)->first();
+
+    if (! $user || ! Hash::check($request->password, $user->password)) {
         return response()->json([
-            'message' => 'Registrasi berhasil!',
-            'user' => $user
-        ], 201);
+            'message' => 'Email atau password salah!',
+        ], 401);
     }
 
-    public function login(Request $request)
-    {
-        $request->validate([
-            'email' => 'required|email',
-            'password' => 'required|string'
-        ]);
+    $token = $user->createToken('auth_token')->plainTextToken;
 
-        $user = User::where('email', $request->email)->first();
-
-        if (! $user || ! Hash::check($request->password, $user->password)) {
-            return response()->json([
-                'message' => 'Email atau password salah!',
-            ], 401);
-        }
-
-        $token = $user->createToken('auth_token')->plainTextToken;
-
-        return response()->json([
-            'message'=>'Login berhasil!',
-            'token' => $token,
-            'token_type' => 'Bearer',
-            'user'  => [
-                'id' => $user->id,
-                'name' =>$user->name,
-                'email' =>$user->email,
-                'role' =>$user->role,
-            ]
-        ]);
-        
-    }
+    return response()->json([
+        'message' => 'Login berhasil!',
+        'token' => $token,
+        'token_type' => 'Bearer',
+        'user' => [
+            'id' => $user->id,
+            'name' => $user->name,
+            'email' => $user->email,
+            'role' => $user->role
+        ]
+    ]);
+}
 
     public function logout(Request $request)
     {
