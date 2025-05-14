@@ -16,18 +16,26 @@ class AttendanceController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'employee_id' => 'required|exists:employees,id',
-            'date' => 'required|date',
-            'status' => 'required|in:present,sick,alpha',
-            'note' => 'nullable|string'
-        ]);
+{
+    $validated = $request->validate([
+        'employee_id' => 'required|exists:employees,id',
+        'date_start' => 'required|date',
+        'date_end' => 'required|date|after_or_equal:date_start',
+        'note' => 'nullable|string',
+        'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+    ]);
 
-        $attendance = Attendance::create($validated + ['approved' =>false]);
-
-        return response()->json($attendance, 201);
+    if ($request->hasFile('image')) {
+        $imagePath = $request->file('image')->store('attendance_images', 'public');
+        $validated['image'] = $imagePath;
     }
+
+    $validated['approved'] = false;
+
+    $attendance = Attendance::create($validated);
+
+    return response()->json($attendance, 201);
+}
 
     public function approve($id)
     {
