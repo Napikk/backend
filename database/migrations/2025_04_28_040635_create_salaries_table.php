@@ -19,7 +19,7 @@ return new class extends Migration
             $table->decimal('tunjangan', 15, 2);
             $table->string('position_name');
             $table->decimal('total', 15, 2);
-            $table->boolean('approved');
+            // $table->boolean('approved');
             $table->timestamps();
         });
     }    
