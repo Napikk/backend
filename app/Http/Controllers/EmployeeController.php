@@ -74,19 +74,7 @@ class EmployeeController extends Controller
         'email'=>'required|string',
         'phone_number'=>'required|string',
         'address'=>'required|string',
-        'image'=>'image|mimes:jpeg,png,jpg|max:2048',
-    ]);
-
-    if ($request->hasFile('image')) {
-        // Hapus gambar lama jika ada
-        if ($employee->image) {
-            Storage::disk('public')->delete($employee->image);
-        }
-
-        // Simpan gambar baru
-        $imagePath = $request->file('image')->store('employee_images', 'public');
-        $validated['image'] = $imagePath;
-    }
+         ]);
 
     $employee->update($validated);
 
