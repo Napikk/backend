@@ -9,6 +9,15 @@ use Illuminate\Support\Facades\Auth;
 
 class AbsensiController extends Controller
 {
+
+    public function index()
+    {
+        $absensis = Absensi::with('employee')->get();
+
+        return response()->json($absensis);
+    }
+
+
     public function absenMasuk()
     {
         $employee = Auth::user()->employee;
