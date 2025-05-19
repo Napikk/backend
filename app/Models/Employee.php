@@ -16,7 +16,6 @@ class Employee extends Model
         'email',
         'phone_number',
         'address',
-        'image',
     ];
 
     public function attendance(){
