@@ -50,4 +50,12 @@ class AttendanceController extends Controller
 
         return response()->json(['message'=>'Kehadiran berhasil disetujui']);
     }
+
+    public function destroy($id)
+    {
+        $attendance = Attendance::findOrFail($id);
+        $attendance->delete();
+
+        return response()->json(null, 204);
+    }
 }
